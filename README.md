@@ -1,0 +1,3 @@
+# Web oficial de Memorias de un Viaje Pokémon
+
+Con motivo de la finalización del segundo volumen de la serie _fanfiction_ de Memorias de un Viaje Pokémon, he decidido crear la web oficial del proyecto. Esta web se ha concebido como una plataforma de consulta, una compañía para la lectura, que ofrece información expandida sobre el universo del relato, así como un lugar seguro en el que acceder al libro en línea. También ha servido como una práctica para la asignatura de Diseño de Interfaces Web, donde se han aplicado conocimientos de Tailwind CSS, buscando crear una experiencia de usuario intuitiva y atractiva, con una interfaz amigable y fácil de usar.
