@@ -1,0 +1,201 @@
+.carousel-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--background);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.books-scene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    perspective: 1800px;
+    transform-style: preserve-3d;
+    position: relative;
+    flex: 1;
+    padding: 2rem;
+}
+
+.book-card {
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilo Polaroid */
+.book-cover {
+    position: relative;
+    background: white;
+    padding: 12px;
+    border-radius: 16px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.15),
+        0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 5;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+
+/* Estilos específicos para libros laterales */
+.book-left {
+    transform: translateX(-15%) scale(0.7) rotateY(20deg) translateZ(-100px);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.book-left .book-cover {
+    width: 250px;
+    height: 375px;
+}
+
+/* Estilos para libro central */
+.book-center {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+    z-index: 10;
+    animation: float 4s ease-in-out infinite;
+}
+
+.book-center .book-cover {
+    width: 350px;
+    height: 500px;
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.2),
+        0 15px 40px rgba(0, 0, 0, 0.15),
+        0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Libro derecho */
+.book-right {
+    transform: translateX(15%) scale(0.7) rotateY(-20deg) translateZ(-100px);
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.book-right .book-cover {
+    width: 250px;
+    height: 375px;
+}
+
+/* Hover effects */
+.book-left:hover,
+.book-right:hover {
+    opacity: 0.8;
+    transform: translateX(0) scale(0.75) rotateY(0deg);
+    z-index: 8;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1) rotateY(0deg);
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.01) rotateY(0deg);
+    }
+}
+
+/* Botones minimalistas */
+.carousel-button {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid rgba(90, 80, 74, 0.1);
+    font-size: 1.8rem;
+    color: var(--second-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    z-index: 20;
+    flex-shrink: 0;
+}
+
+.carousel-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent-golden-pale);
+    color: var(--accent-aura);
+}
+
+.carousel-button:active {
+    transform: scale(0.96);
+}
+
+.carousel-button svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* Info card minimalista */
+.book-info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    text-align: center;
+    animation: slideUp 0.6s ease-out;
+    margin-top: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.book-info-card h3 {
+    color: var(--accent-aura);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem 0;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

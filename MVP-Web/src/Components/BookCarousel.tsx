@@ -2,17 +2,18 @@ import { useState } from 'react';
 import type { Libro } from '../types';
 import './css/BookCarousel.css';
 
-interface BookCarouselProps{
+interface BookCarouselProps {
     libros: Libro[];
 }
 
-function BookCarousel({libros} : BookCarouselProps) {
+function BookCarousel({ libros }: BookCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [showInfo, setShowInfo] = useState(false);
 
     // Función para ir al libro anterior
     const handlePrevious = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? libros.length - 1 : prevIndex - 1 
+            prevIndex === 0 ? libros.length - 1 : prevIndex - 1
         );
     };
 
@@ -30,7 +31,7 @@ function BookCarousel({libros} : BookCarouselProps) {
         return libros[prevIndex];
     };
 
-      const getNextBook = () => {
+    const getNextBook = () => {
         const nextIndex = currentIndex === libros.length - 1 ? 0 : currentIndex + 1;
         return libros[nextIndex];
     };
@@ -42,53 +43,47 @@ function BookCarousel({libros} : BookCarouselProps) {
     return (
         <section className='carousel-container'>
             <article className='carousel-wrapper'>
-                <button className='carousel-button carousel-button-prev' onClick={handlePrevious} aria-label='Libro anterior'>  
+                <button className='carousel-button carousel-button-prev' onClick={handlePrevious} aria-label='Libro anterior'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="200" height="200">
-                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" 
-                    fill="#000000" 
-                    stroke="none"/>
+                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
+                            fill="#000000"
+                            stroke="none" />
                     </svg>
                 </button>
                 <div className='books-scene'>
                     <div className='book-card book-left'>
                         <div className='book-cover'>
-                            <img src={previousBook.portada} alt={previousBook.titulo}/>
-                            <div className='book-title-overlay'>
-                                <p>{previousBook.titulo}</p>
-                            </div>
+                            <img src={previousBook.portada} alt={previousBook.titulo} />
                         </div>
                     </div>
 
-                    <div className='book-card book-card-center'>
+                    <div className='book-card book-center' onClick={() => setShowInfo(!showInfo)}>
                         <div className='book-cover'>
-                            <img src={currentBook.portada} alt={currentBook.titulo}/>
-                            <div className='book-title-overlay book-title-center'>
-                                <p>{currentBook.titulo}</p>
-                            </div>
+                            <img src={currentBook.portada} alt={currentBook.titulo} />
                         </div>
                     </div>
 
                     <div className='book-card book-right'>
                         <div className='book-cover'>
-                            <img src={nextBook.portada} alt={nextBook.titulo}/>
-                            <div className='book-title-overlay'>
-                                <p>{nextBook.titulo}</p>
-                            </div>
+                            <img src={nextBook.portada} alt={nextBook.titulo} />
                         </div>
                     </div>
                 </div>
 
                 <button className='carousel-button carousel-button-next' onClick={handleNext} aria-label='Siguiente libro'>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="200" height="200">
-                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" 
-                            fill="#000000" 
-                            stroke="none"/>
+                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
+                            fill="#000000"
+                            stroke="none" />
                     </svg>
                 </button>
             </article>
-            <aside className='book-info-card'>
-                <h3>{currentBook.titulo}</h3>
-            </aside>
+            {showInfo && (
+                <aside className='book-info-card'>
+                    <h3>{currentBook.titulo}</h3>
+                    <p>{currentBook.descripcion}</p>
+                </aside>
+            )}
         </section>
     )
 }
