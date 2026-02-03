@@ -26,7 +26,7 @@ function HeaderComponent() {
                                 fill="#D4AF37"
                                 stroke="none" />
                         </svg>
-                        <li>Pokémon</li>
+                        <li>Música</li>
                     </ul>
                 </nav>
             </article>

@@ -2,8 +2,8 @@
     background-color: var(--accent-golden-pale);
     position: sticky;
     top: 0;
-    border-bottom: 2px solid var(--accent-golden-decor);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-bottom: 5px solid var(--accent-golden-decor);
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5);
     transition: box-shadow 0.3s ease;
     z-index: 100;
 }
