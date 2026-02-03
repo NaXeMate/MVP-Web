@@ -7,4 +7,4 @@ export type Libro = {
     paginas: number;
 };
 
-export type LibroResumen = Pick<Libro, 'id' | 'titulo' | 'autor' | 'portada'>;
+
