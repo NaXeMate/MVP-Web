@@ -33,6 +33,16 @@
 
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 h1{
   font-family: var(--medieval-title-h1);
   font-size: 48px;
