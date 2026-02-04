@@ -3,6 +3,7 @@ export type Libro = {
     titulo: string;
     autor: string;
     descripcion: string;
+    sinopsis: string;
     portada: string;
     paginas: number;
 };

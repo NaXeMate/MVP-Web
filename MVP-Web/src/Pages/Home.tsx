@@ -13,17 +13,19 @@ function Home() {
         const LibrosEscritos: Libro[] = [
             {
                 id: 1,
-                titulo: "Memorias de un Viaje Pokémon",
+                titulo: "La Llamada del Aura",
                 autor: "Mateo Quintela Trillo",
                 descripcion: "Un viaje épico a través del mundo Pokémon lleno de aventuras inolvidables",
+                sinopsis: "",
                 portada: portada1,
                 paginas: 3000
             },
             {
                 id: 2,
-                titulo: "Harry Potter y la Piedra Filosofal",
-                autor: "J.K. Rowling",
+                titulo: "Memorias de un Viaje Pokemon",
+                autor: "Mateo Quintela Trillo",
                 descripcion: "Un joven mago descubre su destino en el mundo mágico",
+                sinopsis: "",
                 portada: portada2,
                 paginas: 223,
             },
@@ -32,6 +34,7 @@ function Home() {
                 titulo: "Cien años de soledad",
                 autor: "Gabriel García Márquez",
                 descripcion: "La historia legendaria de la familia Buendía a través de generaciones",
+                sinopsis: "",
                 portada: portada3,
                 paginas: 471,
             }

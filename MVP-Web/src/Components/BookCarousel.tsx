@@ -8,7 +8,10 @@ interface BookCarouselProps {
 
 function BookCarousel({ libros }: BookCarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [showInfo, setShowInfo] = useState(false);
+
+    const TotalLibros = libros.length;
+    const anguloPorLibro = 360 / TotalLibros;
+    const radio = 360;
 
     // Función para ir al libro anterior
     const handlePrevious = () => {
@@ -36,9 +39,15 @@ function BookCarousel({ libros }: BookCarouselProps) {
         return libros[nextIndex];
     };
 
+    const handleGoToBook = (index: number) => {
+        setCurrentIndex(index);
+    };
+
     const currentBook = getCurrentBook();
     const previousBook = getPreviousBook();
     const nextBook = getNextBook();
+
+    const rotacionActual = currentIndex * anguloPorLibro;
 
     return (
         <section className='carousel-container'>
@@ -51,22 +60,24 @@ function BookCarousel({ libros }: BookCarouselProps) {
                     </svg>
                 </button>
                 <div className='books-scene'>
-                    <div className='book-card book-left'>
-                        <div className='book-cover'>
-                            <img src={previousBook.portada} alt={previousBook.titulo} />
-                        </div>
-                    </div>
+                    <div className='books-cylinder' style={{ transform: `rotateY(${-rotacionActual}deg)` }}>
+                        {libros.map((libros, index) => {
+                            const angulo = index * anguloPorLibro;
+                            const esActivo = index === currentIndex;
+                            const escala = esActivo ? 1.1 : 0.85;
 
-                    <div className='book-card book-center' onClick={() => setShowInfo(!showInfo)}>
-                        <div className='book-cover'>
-                            <img src={currentBook.portada} alt={currentBook.titulo} />
-                        </div>
-                    </div>
-
-                    <div className='book-card book-right'>
-                        <div className='book-cover'>
-                            <img src={nextBook.portada} alt={nextBook.titulo} />
-                        </div>
+                            return (
+                                <div key={libros.id || index} className={`book-card ${esActivo ? 'book-active' : ''}`} style={{ transform: `rotateY(${angulo}deg) translateZ(${radio}px) scale(${escala})` }} onClick={() => handleGoToBook(index)}>
+                                    <div className='book-cover'>
+                                        <img src={libros.portada} alt={libros.titulo} />
+                                    </div>
+                                    <div className='book-title-window'>
+                                        <h3>{libros.titulo}</h3>
+                                        <p>{libros.descripcion}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
 
@@ -78,12 +89,7 @@ function BookCarousel({ libros }: BookCarouselProps) {
                     </svg>
                 </button>
             </article>
-            {showInfo && (
-                <aside className='book-info-card'>
-                    <h3>{currentBook.titulo}</h3>
-                    <p>{currentBook.descripcion}</p>
-                </aside>
-            )}
+
         </section>
     )
 }

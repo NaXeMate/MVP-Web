@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=MedievalSharp&family=Reddit+Mono:wght@200..900&display=swap');
+
 :root {
 
   /* VARIABLES COLORES */
   --background: #fef8f0;
-  --background-cards: #f5f1eb;
+  --background-cards: #f1ede7;
   --body-text: rgba(26, 22, 20, 0.2);
   --second-text: #5A504A;
   --accent-pokedex: #CC0000;
@@ -29,7 +30,9 @@
   --ui-elements-text: 'Inter', Arial, sans-serif;
   --enphasis-strong: 'Literata', Georgia, serif;
   --emphasis-italic: 'Literata', Georgia, serif;
-  --data-monospace: 'Reddit Mono', /*Consola fuente*/, serif;
+  --data-monospace: 'Reddit Mono',
+    /*Consola fuente*/
+    , serif;
 
 }
 
@@ -39,34 +42,35 @@
   padding: 0;
 }
 
+body {
+  background-color: var(--background);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-h1{
+h1 {
   font-family: var(--medieval-title-h1);
   font-size: 48px;
   color: var(--body-text);
 }
 
-h2{
+h2 {
   font-family: var(--subsection-h2);
   font-size: 24px;
   font-weight: 600;
   line-height: 1.3;
 }
 
-h3{
-  font-family:var(--third-section-h3);
+h3 {
+  font-family: var(--third-section-h3);
   font-size: 18px;
   line-height: 1.4;
 }
 
-p{
+p {
   font-family: var(--body-text-p);
   font-size: 15px;
   line-height: 1.7;
 }
-
-
-
