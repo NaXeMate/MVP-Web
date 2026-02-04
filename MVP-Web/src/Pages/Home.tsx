@@ -1,5 +1,6 @@
 import HeaderComponent from '../Components/header';
 import BookCarousel from '../Components/BookCarousel';
+import AboutComponent from '../Components/AboutComponent';
 import { useState, useEffect } from 'react';
 import type { Libro } from '../types';
 import portada1 from '../assets/Portada1.jpeg';
@@ -50,6 +51,7 @@ function Home() {
             <HeaderComponent />
             <main className="home-content">
                 {libros.length > 0 && <BookCarousel libros={libros} />}
+                <AboutComponent></AboutComponent>
             </main>
         </div>
     );
