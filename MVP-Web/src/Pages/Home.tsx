@@ -1,6 +1,7 @@
 import HeaderComponent from '../Components/header';
 import BookCarousel from '../Components/BookCarousel';
 import AboutComponent from '../Components/AboutComponent';
+import FooterComponent from '../Components/Footer';
 import { useState, useEffect } from 'react';
 import type { Libro } from '../types';
 import portada1 from '../assets/Portada1.jpeg';
@@ -23,7 +24,7 @@ function Home() {
             },
             {
                 id: 2,
-                titulo: "Memorias de un Viaje Pokemon",
+                titulo: "Ecos del Comienzo",
                 autor: "Mateo Quintela Trillo",
                 descripcion: "Un joven mago descubre su destino en el mundo mágico",
                 sinopsis: "",
@@ -32,7 +33,7 @@ function Home() {
             },
             {
                 id: 3,
-                titulo: "Cien años de soledad",
+                titulo: "Descendiente de Hakaru",
                 autor: "Gabriel García Márquez",
                 descripcion: "La historia legendaria de la familia Buendía a través de generaciones",
                 sinopsis: "",
@@ -52,6 +53,7 @@ function Home() {
             <main className="home-content">
                 {libros.length > 0 && <BookCarousel libros={libros} />}
                 <AboutComponent></AboutComponent>
+                <FooterComponent />
             </main>
         </div>
     );
