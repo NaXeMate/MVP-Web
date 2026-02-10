@@ -1,5 +1,5 @@
 .footer-section{
-    background-color: #d5d5d5;
+    background: linear-gradient(90deg, #ffcccc 0%, #d4b5d4 50%, #a8b5d4 100%);
     padding: 2rem 3rem;
     color: #000;
     font-family: var(--body-text-p);
