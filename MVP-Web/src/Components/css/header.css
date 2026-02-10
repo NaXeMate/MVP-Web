@@ -12,12 +12,14 @@
     max-width: 100%;
     padding: 0.5rem 1rem;
     display: flex;
+    height: 130px;
     align-items: center;
     gap: 15rem;
 }
 
 .logo-icon {
     height: 9.5rem;
+    padding: 1rem;
     width: auto;
     object-fit: contain;
     transition: transform 0.2s ease;
