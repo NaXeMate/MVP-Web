@@ -1,130 +1,136 @@
-.footer-section{
-    background-color: #d5d5d5;
-    padding: 2rem 3rem;
-    color: #000;
-    font-family: var(--body-text-p);
-    border-top: 1px solid black;
+.footer-section {
+  background: var(--searching-background);
+  padding: 2rem 3rem;
+  color: #000;
+  font-family: var(--body-text-p);
+  border-top: 1px solid black;
 }
 
-.footer-container{
-    max-width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 3rem;
+.footer-container {
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 3rem;
 }
 
-.footer-divider{
-    width: 2px;
-    background-color: #6b7280;
-    opacity: 0.5;
-    align-self: stretch;
+.footer-divider {
+  width: 2px;
+  background-color: #6b7280;
+  opacity: 0.5;
+  align-self: stretch;
 }
 
-.footer-column.footer-left{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.footer-column.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.footer-block h3{
-    font-size: 1.5rem;
-    font-family: var(--third-section-h3);
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.5px;
+.footer-block h3 {
+  font-size: 1.5rem;
+  font-family: var(--third-section-h3);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
 }
 
-.footer-block p{
-    font-family: var(--body-text-p);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0.3rem 0;
-    font-weight: 400;
+.footer-block p {
+  font-family: var(--body-text-p);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0.3rem 0;
+  font-weight: 400;
 }
 
-.footer-links{
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 0.5rem;
+.footer-links {
+  display: flex;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
 }
 
-.footer-links a{
-    color: #000;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: opacity 0.5s;
-
+.footer-links a {
+  color: #000;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: opacity 0.5s;
 }
 
-.footer-links a:hover{
-    opacity: 0.7;
+.footer-links a:hover {
+  opacity: 0.7;
+  color: var(--accent-aura);
 }
 
 .footer-column.footer-center {
-    flex: 1.5;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
+  flex: 1.5;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
 }
 
 .footer-logo-wrapper {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 250px;
 }
 
 .footer-logo {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    border: 15px solid white;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    object-fit: cover;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 15px solid white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
 }
 
 .footer-brand-content h2 {
-    font-size: 1.3rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-    letter-spacing: 1px;
-    text-align: left;
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  text-align: left;
 }
 
 .footer-brand-content p {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 0.85rem;
-    line-height: 1.6;
-    text-align:left;
-    hyphens: auto;
+  font-family: var(--body-text-p);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+  hyphens: auto;
 }
 
 .footer-brand-content strong {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 /* Columna Derecha */
 .footer-column.footer-right {
-    flex: 1.2;
+  flex: 1.2;
 }
 
-.footer-column.footer-right h3{
-    font-size: 1.1rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.5px;
+.footer-column.footer-right h3 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.5px;
 }
 
 .footer-column.footer-right p {
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 0.8rem;
-    line-height: 1.6;
-    text-align: justify;
-    hyphens: auto;
+  font-family: var(--body-text-p);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
 }

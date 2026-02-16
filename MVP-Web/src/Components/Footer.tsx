@@ -9,8 +9,8 @@ function Footer() {
                 <div className="footer-column footer-left">
                     <div className="footer-block">
                         <h3>CONTACTO</h3>
-                        <p>Email: [futuro email]</p>
-                        <p>Newsletter: [enlace a newsletter]</p>
+                        <p><span className="emphasis-text">Email:</span> [futuro email]</p>
+                        <p><span className="emphasis-text">Newsletter:</span> [enlace a newsletter]</p>
                     </div>
                     <div className="footer-block">
                         <h3>OTRAS SECCIONES</h3>
@@ -30,7 +30,7 @@ function Footer() {
                         <img src={Logo} alt="Logo de NaxeMate productions" className="footer-logo" />
                     </div>
                     <div className="footer-brand-content">
-                        <h2>NAXEMATE <br /> PRODUCTIONS™</h2>
+                        <h2>NAXEMATE PRODUCTIONS™</h2>
                         <p>
                             NaXeMate Productions™ es el sello creativo de Mateo, que abarca todo tipo de proyectos,
                             desde código y literatura hasta otras muchas cosas, siempre poniendo en primer lugar la dedicación,
@@ -51,7 +51,7 @@ function Footer() {
                         No se obtiene beneficio económico directo ni indirecto a través de ventas, publicidad, donativos, suscripciones u otros medios.
                         Pokémon, sus personajes, criaturas, nombres, localizaciones y demás elementos relacionados son propiedad de sus correspondientes titulares de derechos,
                         y este proyecto no está afiliado, patrocinado ni aprobado por ellos. La obra se ha desarrollado desde el máximo respeto y admiración hacia los creadores originales
-                        y hacia todos aquellos artistas y narradores cuyas obras —incluidas sagas ajenas al universo Pokémon— hayan podido inspirar algunos de sus elementos,
+                        y hacia todos aquellos artistas y narradores cuyas obras (incluidas aquellas provenientes de sagas ajenas al universo Pokémon) hayan podido inspirar algunos de sus elementos,
                         sin pretender en ningún caso sustituir ni competir con las obras oficiales.
                     </p>
                 </div>
