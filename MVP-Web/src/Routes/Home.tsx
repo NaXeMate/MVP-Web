@@ -1,12 +1,12 @@
-import HeaderComponent from '../Components/header';
 import BookCarousel from '../Components/BookCarousel';
 import AboutComponent from '../Components/AboutComponent';
-import FooterComponent from '../Components/Footer';
+
 import { useState, useEffect } from 'react';
 import type { Libro } from '../types';
-import portada1 from '../assets/Portada1.jpeg';
-import portada2 from '../assets/Portada_MVP_I.png';
-import portada3 from "../assets/imagen 1.png";
+
+import portada1 from '../assets/Books/Portada1.jpeg';
+import portada2 from '../assets/Books/Portada_MVP_I.png';
+import portada3 from "../assets/Books/imagen 1.png";
 
 function Home() {
 
@@ -49,11 +49,9 @@ function Home() {
 
     return (
         <div className="home-page">
-            <HeaderComponent />
             <main className="home-content">
                 {libros.length > 0 && <BookCarousel libros={libros} />}
                 <AboutComponent></AboutComponent>
-                <FooterComponent />
             </main>
         </div>
     );
