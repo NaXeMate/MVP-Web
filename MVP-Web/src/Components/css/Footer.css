@@ -134,3 +134,22 @@
   text-align: justify;
   hyphens: auto;
 }
+
+/* ── Responsive (portátiles): ocultar logo y redistribuir espacio ── */
+@media (max-width: 1738px) {
+  .footer-logo-wrapper {
+    display: none;
+  }
+
+  .footer-column.footer-left {
+    justify-content: space-between;
+  }
+
+  .footer-column.footer-center {
+    flex: 1.5;
+  }
+
+  .footer-column.footer-right {
+    flex: 2;
+  }
+}
