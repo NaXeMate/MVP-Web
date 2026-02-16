@@ -1,1 +1,1 @@
-export type { Libro } from './common';
+export type { Libro, Pokemon } from './common';
