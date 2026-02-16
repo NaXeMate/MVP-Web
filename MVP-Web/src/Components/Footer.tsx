@@ -1,5 +1,5 @@
 import "./css/Footer.css"
-import Logo from "../assets/Logo_NaXeMate_Productions.png"
+import Logo from "../assets/Brand_Logos/Logo_NaXeMate_Productions.png"
 
 function Footer() {
     return (
