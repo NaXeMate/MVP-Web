@@ -41,7 +41,7 @@ function HeaderComponent() {
             <ul>
               <li>
                 <Link
-                  to="/"
+                  to="/Libros"
                   className={`${isActive('/') ? 'active' : ''}`}
                 >
                   Libros

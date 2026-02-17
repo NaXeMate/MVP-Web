@@ -2,15 +2,14 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import Root from './Routes/Root';
-import NotFoundPage from './Pages/NotFoundPage';
 import Home from './Routes/Home';
-import Enciclopedia from './Routes/Enciclopedia';
+import Libros from './Routes/Libros';
+
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+
     children: [
       {
         index: true,
@@ -18,11 +17,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'enciclopedia',
-        element: <Enciclopedia />,
+
       },
       {
         path: 'libros',
-        element: <Home />,
+        element: <Libros />,
       },
       {
         path: 'universo',
@@ -40,7 +39,6 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <NotFoundPage />
   }
 ]);
 
