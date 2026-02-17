@@ -4,6 +4,9 @@ import HTMLFlipBook from 'react-pageflip';
 import type { InteractiveBookProps } from '../types';
 import './css/InteractiveBook.css';
 import libro1 from "../assets/MVP_II.pdf";
+import portada1 from "../assets/Books/Portada1.jpeg";
+import portada2 from "../assets/Books/Portada_MVP_I.png";
+import portada3 from "../assets/Books/imagen 1.png";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface TocEntry {
@@ -13,60 +16,63 @@ interface TocEntry {
 }
 
 const DEFAULT_TOC: TocEntry[] = [
-    { label: '1. La princesa',               page: 1,  section: 'SECCIÓN I: Consecuencias' },
-    { label: 'I. El día en que todo cambió', page: 3  },
-    { label: 'II. Luces y sombras',          page: 5  },
-    { label: 'III. Decisiones',              page: 7  },
-    { label: '2. El viaje',                  page: 9,  section: 'SECCIÓN II: El viaje' },
-    { label: 'IV. El entrenamiento',         page: 11 },
-    { label: 'V. El pecado',                 page: 13 },
-    { label: 'VI. La partida',               page: 15 },
-    { label: '3. No importa la distancia',   page: 17, section: 'SECCIÓN III' },
-    { label: 'VII. Aura',                    page: 19 },
-    { label: 'VIII. Justicia',               page: 21 },
-    { label: 'IX. Exilio',                   page: 23 },
+    { label: '1. La princesa', page: 1, section: 'SECCIÓN I: Consecuencias' },
+    { label: 'I. El día en que todo cambió', page: 3 },
+    { label: 'II. Luces y sombras', page: 5 },
+    { label: 'III. Decisiones', page: 7 },
+    { label: '2. El viaje', page: 9, section: 'SECCIÓN II: El viaje' },
+    { label: 'IV. El entrenamiento', page: 11 },
+    { label: 'V. El pecado', page: 13 },
+    { label: 'VI. La partida', page: 15 },
+    { label: '3. No importa la distancia', page: 17, section: 'SECCIÓN III' },
+    { label: 'VII. Aura', page: 19 },
+    { label: 'VIII. Justicia', page: 21 },
+    { label: 'IX. Exilio', page: 23 },
 ];
 
 interface ExtendedBookProps extends InteractiveBookProps {
-    coverImage?: string;
-    bookTitle?: string;
     toc?: TocEntry[];
     loginUrl?: string;
 }
 
 const InteractiveBook: React.FC<ExtendedBookProps> = ({
     pdfUrl = libro1,
-    coverImage,
-    bookTitle = 'Memorias de un Viaje Pokémon',
     toc = DEFAULT_TOC,
     loginUrl = '/login',
 }) => {
-    const [numPages, setNumPages]       = useState<number>(0);
+    const [numPages, setNumPages] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(0);
-    const [pageSize, setPageSize]       = useState({ w: 420, h: 594 });
-    const book     = useRef<any>(null);
+    const [pageSize, setPageSize] = useState({ w: 420, h: 594 });
+    const book = useRef<any>(null);
     const centerRef = useRef<HTMLDivElement>(null);
 
-    // Measure the center column to size the book correctly
     useEffect(() => {
+        let resizeTimeout: number;
+
         const compute = () => {
             const vw = window.innerWidth;
             let w: number;
             if (vw < 960) {
-                // Mobile/tablet: nearly full width, single page
                 w = Math.min(Math.floor((vw - 48) / 2), 380);
             } else {
-                // Desktop: subtract two sidebars (140+210) + gaps (3*24) + padding (2*32)
-                const centerColW = vw - 140 - 210 - 72 - 64;
-                // Each page = half spread minus a bit
+                const centerColW = vw - 200 - 200 - 144 - 64;
                 w = Math.min(Math.floor(centerColW / 2) - 10, 480);
             }
             w = Math.max(w, 260);
-            setPageSize({ w, h: Math.round(w * 1.414) }); // A4 ratio
+            setPageSize({ w, h: Math.round(w * 1.414) });
         };
+
+        const debouncedCompute = () => {
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+            resizeTimeout = window.setTimeout(compute, 150);
+        };
+
         compute();
-        window.addEventListener('resize', compute);
-        return () => window.removeEventListener('resize', compute);
+        window.addEventListener('resize', debouncedCompute);
+        return () => {
+            window.removeEventListener('resize', debouncedCompute);
+            if (resizeTimeout) clearTimeout(resizeTimeout);
+        };
     }, []);
 
     const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
@@ -89,26 +95,23 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
         setCurrentPage(e.data);
     }, []);
 
-    const activeTocIndex = toc.reduce(
-        (best, entry, i) => (entry.page <= currentPage + 1 ? i : best),
-        0
-    );
-
     return (
         <div className="interactive-book-container">
             <div className="book-stage">
 
-                {/* ── LEFT ── */}
                 <aside className="book-sidebar-left">
-                    {coverImage && (
-                        <div className="book-cover-thumb">
-                            <img src={coverImage} alt={bookTitle} />
-                        </div>
-                    )}
-                    <span className="book-progress-label">En progreso</span>
+                    <div className="book-cover-thumb">
+                        <img src={portada1} alt="Portada 1" />
+                    </div>
+                    <div className="book-cover-thumb">
+                        <img src={portada2} alt="Portada 2" />
+                    </div>
+                    <div className="book-cover-thumb">
+                        <img src={portada3} alt="Portada 3" />
+                    </div>
                 </aside>
 
-                {/* ── CENTER ── */}
+
                 <div className="book-center" ref={centerRef}>
                     <Document
                         file={pdfUrl}
@@ -152,9 +155,9 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
                                             <Page
                                                 pageNumber={pageNum}
                                                 width={pageSize.w}
-                                                height={pageSize.h}
                                                 renderAnnotationLayer={false}
                                                 renderTextLayer={false}
+                                                renderMode="canvas"
                                                 className="book-page-content"
                                             />
                                             <span className="page-number">{pageNum}</span>
@@ -185,7 +188,6 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
                     </p>
                 </div>
 
-                {/* ── RIGHT: TOC ── */}
                 <aside className="book-sidebar-right">
                     <h2 className="toc-title">Índice</h2>
                     {(() => {
@@ -202,10 +204,7 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
                             }
                             nodes.push(
                                 <ul key={`u${i}`} className="toc-list">
-                                    <li
-                                        className={i === activeTocIndex ? 'active' : ''}
-                                        onClick={() => goToPage(entry.page)}
-                                    >
+                                    <li onClick={() => goToPage(entry.page)}>
                                         {entry.label}
                                     </li>
                                 </ul>
@@ -220,4 +219,4 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
     );
 };
 
-export default InteractiveBook;
+export default React.memo(InteractiveBook);

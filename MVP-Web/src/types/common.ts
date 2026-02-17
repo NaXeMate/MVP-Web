@@ -33,5 +33,5 @@ export type Pokemon = {
 }
 
 export type InteractiveBookProps = {
-    pdfUrl: string;
+    pdfUrl?: string;
 }
