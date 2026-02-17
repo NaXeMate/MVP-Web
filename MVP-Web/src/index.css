@@ -1,39 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=MedievalSharp&family=Reddit+Mono:wght@200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=MedievalSharp&family=Reddit+Mono:wght@200..900&display=swap");
+@import "tailwindcss";
 
 :root {
-
   /* VARIABLES COLORES */
   --background: #fef8f0;
   --background-cards: #f1ede7;
-  --body-text: rgba(26, 22, 20, 0.2);
-  --second-text: #5A504A;
-  --accent-pokedex: #CC0000;
-  --accent-emerald: #2D8659;
-  --accent-aura: #4A6FA5;
-  --accent-golden-decor: #D4AF37;
-  --accent-golden-pale: #E8D5A8;
-  --accent-alt: #3B4CCA;
-  --accent-yellow: #FFDE00;
-  --status-success: #3EA876;
-  --status-fail-warning: #C85A54;
-  --status-info: #4A6FA5;
-  --status-soft-warning: #D9A854;
-
+  --body-text: #1a1614;
+  --body-text-light: rgba(26, 22, 20, 0.2);
+  --second-text: #5a504a;
+  --accent-pokedex: #cc0000;
+  --accent-emerald: #2d8659;
+  --accent-aura: #4a6fa5;
+  --accent-golden-decor: #d4af37;
+  --accent-golden-pale: #e8d5a8;
+  --accent-alt: #3b4cca;
+  --accent-yellow: #ffde00;
+  --status-success: #3ea876;
+  --status-fail-warning: #c85a54;
+  --status-info: #4a6fa5;
+  --status-soft-warning: #d9a854;
+  --searching-background: linear-gradient(
+    90deg,
+    rgba(204, 0, 0, 0.2) 20%,
+    rgba(74, 111, 165, 0.2) 100%
+  );
 
   /* VARIABLES FUENTES */
-  --medieval-title-h1: 'Medieval Sharp', Georgia, serif;
-  --subsection-h2: 'Literata', Georgia, serif;
-  --third-section-h3: 'Literata', Georgia, serif;
-  --body-text-p: 'Literata', Georgia, serif;
-  --secondary-text-tag: 'Inter', Arial, sans-serif;
-  --button-text: 'Inter', Arial, sans-serif;
-  --ui-elements-text: 'Inter', Arial, sans-serif;
-  --enphasis-strong: 'Literata', Georgia, serif;
-  --emphasis-italic: 'Literata', Georgia, serif;
-  --data-monospace: 'Reddit Mono',
-    /*Consola fuente*/
-    , serif;
-
+  --medieval-title-h1: "MedievalSharp", Georgia, serif;
+  --subsection-h2: "Literata", Georgia, serif;
+  --third-section-h3: "Literata", Georgia, serif;
+  --body-text-p: "Literata", Georgia, serif;
+  --secondary-text-tag: "Inter", Arial, sans-serif;
+  --button-text: "Inter", Arial, sans-serif;
+  --ui-elements-text: "Inter", Arial, sans-serif;
+  --emphasis-strong: "Literata", Georgia, serif;
+  --emphasis-italic: "Literata", Georgia, serif;
+  --data-monospace: "Reddit Mono", monospace;
 }
 
 * {
@@ -73,4 +75,11 @@ p {
   font-family: var(--body-text-p);
   font-size: 15px;
   line-height: 1.7;
+}
+
+.emphasis-text {
+  font-family: var(--emphasis-strong);
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 700;
 }
