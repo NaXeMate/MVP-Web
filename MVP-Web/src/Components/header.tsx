@@ -48,7 +48,10 @@ function HeaderComponent() {
             {/* Navegación centrada */}
             <ul>
               <li>
-                <Link to="/" className={`${isActive("/") ? "active" : ""}`}>
+                <Link
+                  to="/Libros"
+                  className={`${isActive("/") ? "active" : ""}`}
+                >
                   Libros
                 </Link>
               </li>

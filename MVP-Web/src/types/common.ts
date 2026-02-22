@@ -31,3 +31,7 @@ export type Pokemon = {
     legendario: boolean;
     singular: boolean;
 }
+
+export type InteractiveBookProps = {
+    pdfUrl?: string;
+}

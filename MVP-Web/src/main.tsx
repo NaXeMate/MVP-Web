@@ -11,6 +11,7 @@ import NotFoundPage from "./Pages/NotFoundPage";
 import ErrorPage from "./Pages/ErrorPage";
 import Home from "./Routes/Home";
 import Enciclopedia from "./Routes/Enciclopedia";
+import Libros from "./Routes/Libros";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "libros",
         element: <Home />,
+      },
+      {
+        path: "libros",
+        element: <Libros />,
       },
       {
         path: "universo",
