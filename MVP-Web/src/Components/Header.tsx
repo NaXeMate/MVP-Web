@@ -29,7 +29,7 @@ function HeaderComponent() {
             <ul>
               <li>
                 <Link to="/" className={`${isActive("/") ? "active" : ""}`}>
-                  Libros
+                  Inicio
                 </Link>
               </li>
 
@@ -47,13 +47,7 @@ function HeaderComponent() {
               <HeaderSeparator />
 
               <li>
-                <Link to="/personajes">Personajes</Link>
-              </li>
-
-              <HeaderSeparator />
-
-              <li>
-                <Link to="/musica">Música</Link>
+                <Link to="/libros">Libros</Link>
               </li>
             </ul>
 
