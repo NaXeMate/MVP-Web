@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "react-pageflip": "^2.0.3",
-    "react-pdf": "^10.4.0"
-  }
-}
