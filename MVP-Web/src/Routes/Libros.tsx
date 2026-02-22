@@ -2,10 +2,10 @@ import InteractiveBook from "../Components/InteractiveBook";
 
 function Libros() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="grow w-full overflow-x-hidden">
+    <div className="flex flex-col grow">
+      <div className="grow w-full overflow-x-hidden flex flex-col">
         <InteractiveBook />
-      </main>
+      </div>
     </div>
   );
 }
