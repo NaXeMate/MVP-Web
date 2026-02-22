@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Libro } from '../types';
 import './css/BookCarousel.css';
+import BackButton from './Common/BackButton';
+import ForwardButton from './Common/ForwardButton';
 
 interface BookCarouselProps {
     libros: Libro[];
@@ -52,13 +54,11 @@ function BookCarousel({ libros }: BookCarouselProps) {
     return (
         <section className='carousel-container'>
             <article className='carousel-wrapper'>
-                <button className='carousel-button carousel-button-prev' onClick={handlePrevious} aria-label='Libro anterior'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="200" height="200">
-                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"
-                            fill="#000000"
-                            stroke="none" />
-                    </svg>
-                </button>
+                <BackButton 
+                    onClick={handlePrevious} 
+                    className='carousel-button carousel-button-prev'
+                    size={60}
+                />
                 <div className='books-scene'>
                     <div className='books-cylinder' style={{ transform: `rotateY(${-rotacionActual}deg)` }}>
                         {libros.map((libros, index) => {
@@ -81,13 +81,11 @@ function BookCarousel({ libros }: BookCarouselProps) {
                     </div>
                 </div>
 
-                <button className='carousel-button carousel-button-next' onClick={handleNext} aria-label='Siguiente libro'>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="200" height="200">
-                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"
-                            fill="#000000"
-                            stroke="none" />
-                    </svg>
-                </button>
+                <ForwardButton 
+                    onClick={handleNext} 
+                    className='carousel-button carousel-button-next'
+                    size={60}
+                />
             </article>
 
         </section>
