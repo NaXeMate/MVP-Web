@@ -40,7 +40,7 @@ function HeaderComponent() {
                   to="/enciclopedia"
                   className={`${isActive("/enciclopedia") ? "active" : ""}`}
                 >
-                  Universo
+                  Enciclopedia
                 </Link>
               </li>
 
