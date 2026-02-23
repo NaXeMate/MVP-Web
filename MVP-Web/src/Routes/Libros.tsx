@@ -1,18 +1,13 @@
-import React from 'react';
-import InteractiveBook from '../Components/InteractiveBook';
-import Header from '../Components/header';
-import Footer from '../Components/Footer';
+import InteractiveBook from "../Components/InteractiveBook";
 
-const Libros: React.FC = () => {
-    return (
-        <div className="min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-grow w-full overflow-x-hidden">
-                <InteractiveBook />
-            </main>
-            <Footer />
-        </div>
-    );
-};
+function Libros() {
+  return (
+    <div className="flex flex-col grow">
+      <div className="grow w-full overflow-x-hidden flex flex-col">
+        <InteractiveBook />
+      </div>
+    </div>
+  );
+}
 
 export default Libros;

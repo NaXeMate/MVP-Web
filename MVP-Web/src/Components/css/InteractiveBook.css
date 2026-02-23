@@ -47,39 +47,39 @@
 }
 
 .book-cover-thumb {
-    width: 170px;
-    border-radius: 3px 8px 8px 3px;
-    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.7);
-    overflow: hidden;
-    border: 1px solid #2a4a6a;
+  width: 170px;
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  border: 1px solid #2a4a6a;
 }
 
 .book-cover-thumb img {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
 }
 
 /* ─── Centre ──────────────────────────────────────────────────────────────── */
 
 .book-center {
-    justify-self: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .book-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.book-wrapper>div,
-.book-wrapper>span {
-    line-height: 0;
-    font-size: 0;
+.book-wrapper > div,
+.book-wrapper > span {
+  line-height: 0;
+  font-size: 0;
 }
 
 .demo-book {
@@ -87,27 +87,27 @@
 }
 
 .book-page-container {
-    background-color: var(--cream);
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    border-right: 1px solid #ddd5c0;
+  background-color: var(--cream);
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-right: 1px solid #ddd5c0;
 }
 
 .book-page-content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .book-page-content canvas {
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
-    object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 /* Placeholder for unrendered pages */
@@ -120,10 +120,10 @@
 /* ─── Controls ────────────────────────────────────────────────────────────── */
 
 .book-controls {
-    display: flex;
-    align-items: center;
-    gap: 1.8rem;
-    margin-top: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  margin-top: 1.1rem;
 }
 
 .book-nav-button {
@@ -142,7 +142,7 @@
 }
 
 .book-nav-button:active {
-    transform: scale(0.94);
+  transform: scale(0.94);
 }
 
 /* Page indicator — static display */
@@ -199,13 +199,13 @@
 }
 
 .book-cta a {
-    color: #000;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .book-cta a:hover {
-    border-bottom-color: #000;
+  border-bottom-color: #000;
 }
 
 /* ─── Right sidebar — TOC ─────────────────────────────────────────────────── */
@@ -409,12 +409,12 @@
 /* ─── Responsive ──────────────────────────────────────────────────────────── */
 
 @media (max-width: 960px) {
-    .book-stage {
-        grid-template-columns: 1fr;
-    }
+  .book-stage {
+    grid-template-columns: 1fr;
+  }
 
-    .book-sidebar-left,
-    .book-sidebar-right {
-        display: none;
-    }
+  .book-sidebar-left,
+  .book-sidebar-right {
+    display: none;
+  }
 }

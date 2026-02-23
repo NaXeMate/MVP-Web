@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
 import BackButton from "./Common/BackButton";
@@ -24,26 +25,26 @@ const RENDER_WINDOW = 4;
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface TocEntry {
-    label: string;
-    page: number;
-    section?: string;
+  label: string;
+  page: number;
+  section?: string;
 }
 
 // ─── Table of Contents ────────────────────────────────────────────────────────
 
 const DEFAULT_TOC: TocEntry[] = [
-    { label: "I. El día en que todo cambió", page: 3, section: "SECCIÓN I: Consecuencias" },
-    { label: "II. Luces y sombras", page: 5 },
-    { label: "III. Decisiones", page: 7 },
-    { label: "IV. El entrenamiento", page: 11, section: "SECCIÓN II: El viaje" },
-    { label: "V. El pecado", page: 13 },
-    { label: "VI. La partida", page: 15 },
-    { label: "VII. Aura", page: 19, section: "SECCIÓN III" },
-    { label: "VIII. Justicia", page: 21 },
-    { label: "IX. Exilio", page: 23 },
-    { label: "X. La tormenta", page: 27, section: "SECCIÓN IV: La tormenta" },
-    { label: "XI. Cenizas", page: 29 },
-    { label: "XII. Renacimiento", page: 31 },
+  { label: "1. La princesa", page: 1, section: "SECCIÓN I: Consecuencias" },
+  { label: "I. El día en que todo cambió", page: 3 },
+  { label: "II. Luces y sombras", page: 5 },
+  { label: "III. Decisiones", page: 7 },
+  { label: "2. El viaje", page: 9, section: "SECCIÓN II: El viaje" },
+  { label: "IV. El entrenamiento", page: 11 },
+  { label: "V. El pecado", page: 13 },
+  { label: "VI. La partida", page: 15 },
+  { label: "3. No importa la distancia", page: 17, section: "SECCIÓN III" },
+  { label: "VII. Aura", page: 19 },
+  { label: "VIII. Justicia", page: 21 },
+  { label: "IX. Exilio", page: 23 },
 ];
 
 // ─── Clickable page indicator ─────────────────────────────────────────────────
@@ -107,8 +108,8 @@ const PageIndicator: React.FC<PageIndicatorProps> = ({ currentPage, numPages, on
 // ─── Main component ───────────────────────────────────────────────────────────
 
 interface ExtendedBookProps extends InteractiveBookProps {
-    toc?: TocEntry[];
-    loginUrl?: string;
+  toc?: TocEntry[];
+  loginUrl?: string;
 }
 
 const InteractiveBook: React.FC<ExtendedBookProps> = ({
@@ -332,8 +333,39 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
                 </aside>
 
             </div>
+          )}
+
+          <p className="book-cta">
+            ¿Quieres seguir leyendo? <a href={loginUrl}>Inicia sesión…</a>
+          </p>
         </div>
-    );
+
+        <aside className="book-sidebar-right">
+          <h2 className="toc-title">Índice</h2>
+          {(() => {
+            const nodes: React.ReactNode[] = [];
+            let lastSection = "";
+            toc.forEach((entry, i) => {
+              if (entry.section && entry.section !== lastSection) {
+                lastSection = entry.section;
+                nodes.push(
+                  <p key={`s${i}`} className="toc-section-title">
+                    {entry.section}
+                  </p>,
+                );
+              }
+              nodes.push(
+                <ul key={`u${i}`} className="toc-list">
+                  <li onClick={() => goToPage(entry.page)}>{entry.label}</li>
+                </ul>,
+              );
+            });
+            return nodes;
+          })()}
+        </aside>
+      </div>
+    </div>
+  );
 };
 
 export default React.memo(InteractiveBook);

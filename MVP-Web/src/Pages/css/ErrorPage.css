@@ -1,0 +1,85 @@
+.error-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  background-color: var(--background);
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 42rem;
+}
+
+.error-status {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-family: var(--data-monospace);
+  font-size: 120px;
+  font-weight: bold;
+  color: var(--accent-pokedex);
+}
+
+.error-title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-family: var(--medieval-title-h1);
+  font-size: 48px;
+  color: var(--body-text);
+}
+
+.error-message {
+  margin-bottom: 2rem;
+  font-family: var(--body-text-p);
+  font-size: 18px;
+  color: var(--second-text);
+  line-height: 1.7;
+}
+
+.error-home-link {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  min-width: 210px;
+  border-radius: 9999px;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s;
+  background-color: var(--accent-golden-decor);
+  font-family: var(--button-text);
+  text-decoration: none;
+}
+
+.error-home-link:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.error-details {
+  margin-top: 2rem;
+  text-align: left;
+  width: 100%;
+}
+
+.error-summary {
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  font-family: var(--ui-elements-text);
+  color: var(--second-text);
+}
+
+.error-pre {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow: auto;
+  font-size: 0.875rem;
+  background-color: var(--background-cards);
+  font-family: var(--data-monospace);
+  color: var(--second-text);
+}
