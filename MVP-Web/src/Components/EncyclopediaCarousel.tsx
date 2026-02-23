@@ -49,7 +49,6 @@ function EncyclopediaCarousel({
   const itemsPerPage = useItemsPerPage();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Reset index when items-per-page changes to avoid showing empty space
   useEffect(() => {
     setCurrentIndex((prev) => {
       if (prev >= items.length) return 0;
@@ -73,7 +72,6 @@ function EncyclopediaCarousel({
 
   const visibleItems = items.slice(currentIndex, currentIndex + itemsPerPage);
 
-  // Dynamic grid class based on itemsPerPage
   const gridClass =
     itemsPerPage === 5
       ? "grid-cols-5"
@@ -97,38 +95,42 @@ function EncyclopediaCarousel({
             <div
               key={item.id}
               onClick={() => onCardClick && onCardClick(item)}
-              className="bg-(--background-cards) rounded-2xl p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-(--accent-golden-pale) flex flex-col items-center"
+              className="bg-(--background-cards) rounded-2xl p-6 cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-(--accent-golden-pale) flex flex-col h-full"
             >
-              <div className="aspect-square flex items-center justify-center mb-4 w-full">
+              <div
+                className="aspect-square flex items-center justify-center mb-4 w-full"
+                style={
+                  imageMaxHeight ? { maxHeight: imageMaxHeight } : undefined
+                }
+              >
                 <img
                   src={item.imageUrl}
                   alt={item.nombre}
                   className="w-full h-full object-contain"
-                  style={
-                    imageMaxHeight ? { maxHeight: imageMaxHeight } : undefined
-                  }
                 />
               </div>
-              <h3
-                className="text-center text-lg font-semibold"
-                style={{
-                  fontFamily: "var(--third-section-h3)",
-                  color: "var(--body-text)",
-                }}
-              >
-                {item.nombre}
-              </h3>
-              {item.numPokedex !== undefined && (
-                <p
-                  className="text-center text-sm mt-1"
+              <div className="mt-auto flex flex-col items-center w-full">
+                <h3
+                  className="text-center text-lg font-semibold"
                   style={{
-                    fontFamily: "var(--data-monospace)",
-                    color: "var(--second-text)",
+                    fontFamily: "var(--third-section-h3)",
+                    color: "var(--body-text)",
                   }}
                 >
-                  #{String(item.numPokedex).padStart(3, "0")}
-                </p>
-              )}
+                  {item.nombre}
+                </h3>
+                {item.numPokedex !== undefined && (
+                  <p
+                    className="text-center text-sm mt-1"
+                    style={{
+                      fontFamily: "var(--data-monospace)",
+                      color: "var(--second-text)",
+                    }}
+                  >
+                    #{String(item.numPokedex).padStart(3, "0")}
+                  </p>
+                )}
+              </div>
             </div>
           ))}
         </div>

@@ -9,11 +9,19 @@
 }
 
 .header-container {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 2rem;
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .header-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    padding: 0.5rem 3rem;
+  }
 }
 
 .logo-icon {
@@ -26,21 +34,29 @@
   transform: scale(1.05);
 }
 
-.nav ul {
+.nav-links-container {
+  justify-self: center;
+}
+
+.login-container {
+  justify-self: end;
+}
+
+.nav-links-container ul {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 3.5rem;
   margin: 0;
   padding: 0;
-  justify-self: center;
 }
 
-.nav li {
+.nav-links-container li {
   display: inline-block;
 }
 
-.nav li a {
+.nav-links-container li a,
+.mobile-menu li a {
   font-family: var(--subsection-h2);
   font-size: 1.5rem;
   font-weight: 500;
@@ -56,16 +72,18 @@
   display: inline-block;
 }
 
-.nav li a:hover {
+.nav-links-container li a:hover,
+.mobile-menu li a:hover {
   color: var(--accent-golden-decor);
 }
 
-.nav li a.active {
+.nav-links-container li a.active,
+.mobile-menu li a.active {
   color: var(--accent-golden-decor);
   font-weight: 600;
 }
 
-.nav svg {
+.nav-links-container svg {
   width: 34px;
   height: 34px;
   opacity: 0.4;
@@ -90,4 +108,82 @@
 
 .login-link:hover {
   color: var(--accent-golden-decor);
+}
+
+/* --- Mobile Menu Styles --- */
+.hamburger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.hamburger-btn:active {
+  transform: scale(0.95);
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--accent-golden-pale);
+  border-bottom: 5px solid var(--accent-golden-decor);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+  overflow: hidden;
+  z-index: 90;
+}
+
+.mobile-menu.open {
+  grid-template-rows: 1fr;
+}
+
+.mobile-menu ul {
+  min-height: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobile-menu li {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu li:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu li a {
+  display: block;
+  padding: 1.5rem;
+  font-size: 1.6rem;
+  width: 100%;
+}
+
+.mobile-menu .mobile-login {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Ensure hidden elements in Tailwind do not mess with specific overrides */
+@media (min-width: 768px) {
+  .hamburger-btn {
+    display: none;
+  }
+  .mobile-menu {
+    display: none;
+  }
 }

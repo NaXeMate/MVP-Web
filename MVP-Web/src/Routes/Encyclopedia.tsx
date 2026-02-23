@@ -113,7 +113,7 @@ function Encyclopedia() {
           habilidadOculta: "Justiciero",
           habilidadEspecial: "Aura Ancestral",
         },
-        formaRegional: true,
+        formaRegional: false,
         megaevolucion1: MegaLucario,
         megaevolucion2: MegaLucarioZ,
         megaevolucion3: false,
@@ -183,11 +183,15 @@ function Encyclopedia() {
   ];
 
   const universoPlaceholder: CarouselItem[] = [
-    { id: "u1", nombre: "Academia Solera", imageUrl: AcademiaSolera },
-    { id: "u2", nombre: "Colgante", imageUrl: Colgante },
-    { id: "u3", nombre: "Emblema Imperial", imageUrl: EmblemaImperial },
-    { id: "u4", nombre: "Emblema Caballeros", imageUrl: EmblemaCaballeros },
-    { id: "u5", nombre: "Libro Área Zero", imageUrl: LibroAreaZero },
+    { id: "u1", nombre: "El Colgante del Génesis", imageUrl: Colgante },
+    { id: "u2", nombre: "Academia Solera", imageUrl: AcademiaSolera },
+    { id: "u3", nombre: "Imperio Paldeano", imageUrl: EmblemaImperial },
+    {
+      id: "u4",
+      nombre: "Orden de los Caballeros del Aura",
+      imageUrl: EmblemaCaballeros,
+    },
+    { id: "u5", nombre: "El Área Zero", imageUrl: LibroAreaZero },
   ];
 
   return (

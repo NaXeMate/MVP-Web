@@ -18,7 +18,6 @@ function HeaderLogin() {
     remember: boolean,
   ) => {
     console.log("Login submitted:", { email, password, remember });
-    // Aquí puedes agregar la lógica de autenticación
     setIsLoginModalOpen(false);
   };
 
