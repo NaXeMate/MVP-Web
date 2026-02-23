@@ -329,21 +329,6 @@ const InteractiveBook: React.FC<ExtendedBookProps> = ({
                 <aside className="book-sidebar-right">
                     <h2 className="toc-title">Índice</h2>
                     <div className="toc-scroll">{tocNodes}</div>
-
-                    {/* Download button */}
-                    <a
-                        href={pdfUrl}
-                        download="MVP_II.pdf"
-                        className="toc-download-btn"
-                        title="Descargar PDF"
-                    >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M12 15V3" />
-                            <path d="M7 10l5 5 5-5" />
-                            <path d="M3 20h18" />
-                        </svg>
-                        Descargar PDF
-                    </a>
                 </aside>
 
             </div>
