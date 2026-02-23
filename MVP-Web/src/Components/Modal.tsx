@@ -9,32 +9,20 @@ interface ModalProps {
 
 function Modal({ isOpen, onClose, pokemon }: ModalProps) {
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6 sm:p-8 md:p-12"
-      onClick={onClose}
-    >
-      <div
-        className="bg-(--background-cards) rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-999 p-4 sm:p-6 md:p-8">
+      <div className="bg-(--background-cards) rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl">
         {/* Botón cerrar */}
         <button
           onClick={onClose}
@@ -56,7 +44,7 @@ function Modal({ isOpen, onClose, pokemon }: ModalProps) {
           </svg>
         </button>
 
-        <div className="p-8 pt-20 sm:p-10 sm:pt-24 md:p-12 md:pt-24">
+        <div style={{ padding: "48px", paddingTop: "72px" }}>
           {/* Header con imagen y datos básicos */}
           <div className="flex flex-col md:flex-row gap-8 md:gap-14 mb-8">
             {/* Imagen del Pokémon y Tipos */}
@@ -119,11 +107,12 @@ function Modal({ isOpen, onClose, pokemon }: ModalProps) {
               </h2>
 
               <p
-                className="mb-8 text-lg"
+                className="text-lg"
                 style={{
                   fontFamily: "var(--body-text-p)",
                   color: "var(--second-text)",
                   lineHeight: "1.8",
+                  marginBottom: "40px",
                 }}
               >
                 {pokemon.descripcion}
@@ -206,7 +195,13 @@ function Modal({ isOpen, onClose, pokemon }: ModalProps) {
           {(pokemon.megaevolucion1 ||
             pokemon.megaevolucion2 ||
             pokemon.megaevolucion3) && (
-            <div className="mt-8 pt-6 border-t border-black/5">
+            <div
+              style={{
+                marginTop: "48px",
+                paddingTop: "32px",
+                borderTop: "1px solid rgba(0,0,0,0.05)",
+              }}
+            >
               <h3
                 className="text-sm font-semibold mb-4"
                 style={{
@@ -216,16 +211,20 @@ function Modal({ isOpen, onClose, pokemon }: ModalProps) {
                   letterSpacing: "0.05em",
                 }}
               >
-                Megaevoluciones disponibles
+                Megaevoluciones
               </h3>
               <div className="flex flex-wrap gap-6">
                 {pokemon.megaevolucion1 && (
                   <div className="flex flex-col items-center gap-2">
                     <div className="w-16 h-16 bg-black/5 rounded-xl flex items-center justify-center p-2">
                       <img
-                        src={pokemon.imageUrl}
+                        src={
+                          typeof pokemon.megaevolucion1 === "string"
+                            ? pokemon.megaevolucion1
+                            : pokemon.imageUrl
+                        }
                         alt="Mega I"
-                        className="w-full h-full object-contain grayscale opacity-60"
+                        className="w-full h-full object-contain drop-shadow-md"
                       />
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
@@ -237,9 +236,13 @@ function Modal({ isOpen, onClose, pokemon }: ModalProps) {
                   <div className="flex flex-col items-center gap-2">
                     <div className="w-16 h-16 bg-black/5 rounded-xl flex items-center justify-center p-2">
                       <img
-                        src={pokemon.imageUrl}
+                        src={
+                          typeof pokemon.megaevolucion2 === "string"
+                            ? pokemon.megaevolucion2
+                            : pokemon.imageUrl
+                        }
                         alt="Mega II"
-                        className="w-full h-full object-contain grayscale opacity-60"
+                        className="w-full h-full object-contain drop-shadow-md"
                       />
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
@@ -251,9 +254,13 @@ function Modal({ isOpen, onClose, pokemon }: ModalProps) {
                   <div className="flex flex-col items-center gap-2">
                     <div className="w-16 h-16 bg-black/5 rounded-xl flex items-center justify-center p-2">
                       <img
-                        src={pokemon.imageUrl}
+                        src={
+                          typeof pokemon.megaevolucion3 === "string"
+                            ? pokemon.megaevolucion3
+                            : pokemon.imageUrl
+                        }
                         alt="Mega III"
-                        className="w-full h-full object-contain grayscale opacity-60"
+                        className="w-full h-full object-contain drop-shadow-md"
                       />
                     </div>
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400">

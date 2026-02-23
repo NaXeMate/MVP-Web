@@ -21,7 +21,25 @@ import Pokemon_3 from "../assets/Pokemon/Lucario.png";
 import Pokemon_4 from "../assets/Pokemon/Rapidash_Hakaru_Sur.png";
 import Pokemon_5 from "../assets/Pokemon/Ceruledge.png";
 
+import MegaCharizardX from "../assets/Pokemon/Mega-Evolutions/Mega-Charizard_X.png";
+import MegaCharizardY from "../assets/Pokemon/Mega-Evolutions/Mega-Charizard_Y.png";
+import MegaCharizardZ from "../assets/Pokemon/Mega-Evolutions/Mega-Charizard_ Z.png";
+import MegaLucario from "../assets/Pokemon/Mega-Evolutions/Mega-Lucario.png";
+import MegaLucarioZ from "../assets/Pokemon/Mega-Evolutions/Mega-Lucario_Z.png";
+
+import NateImg from "../assets/Characters/Nate.png";
+import EthelImg from "../assets/Characters/Ethel_Final.png";
+import FreyaImg from "../assets/Characters/Freya_Final.png";
+import RueImg from "../assets/Characters/Rue_Final.png";
+import ChloeImg from "../assets/Characters/Chloe - Art (MVP II).png";
+
 import LogoTextoLateral from "../assets/Brand_Logos/Logo_Texto_Lateral.png";
+
+import AcademiaSolera from "../assets/World/Academia Solera.png";
+import Colgante from "../assets/World/Colgante.png";
+import EmblemaImperial from "../assets/World/Emblema Imperial.png";
+import EmblemaCaballeros from "../assets/World/Emblema_ Caballeros.png";
+import LibroAreaZero from "../assets/World/Libro Área Zero.png";
 
 import Modal from "../Components/Modal";
 import { SeeMoreButton } from "../Components/Common/SeeMoreButton";
@@ -50,9 +68,9 @@ function Encyclopedia() {
           habilidadEspecial: "Dracoignición",
         },
         formaRegional: false,
-        megaevolucion1: true,
-        megaevolucion2: true,
-        megaevolucion3: true,
+        megaevolucion1: MegaCharizardX,
+        megaevolucion2: MegaCharizardY,
+        megaevolucion3: MegaCharizardZ,
         legendario: false,
         singular: false,
       },
@@ -96,8 +114,8 @@ function Encyclopedia() {
           habilidadEspecial: "Aura Ancestral",
         },
         formaRegional: true,
-        megaevolucion1: true,
-        megaevolucion2: true,
+        megaevolucion1: MegaLucario,
+        megaevolucion2: MegaLucarioZ,
         megaevolucion3: false,
         legendario: false,
         singular: false,
@@ -157,17 +175,19 @@ function Encyclopedia() {
   };
 
   const personajesPlaceholder: CarouselItem[] = [
-    { id: "p1", nombre: "Próximamente", imageUrl: Pokemon_5 },
-    { id: "p2", nombre: "Próximamente", imageUrl: Pokemon_4 },
-    { id: "p3", nombre: "Próximamente", imageUrl: Pokemon_3 },
-    { id: "p4", nombre: "Próximamente", imageUrl: Pokemon_2 },
+    { id: "p1", nombre: "Nate", imageUrl: NateImg },
+    { id: "p2", nombre: "Ethel", imageUrl: EthelImg },
+    { id: "p3", nombre: "Freya", imageUrl: FreyaImg },
+    { id: "p4", nombre: "Rue", imageUrl: RueImg },
+    { id: "p5", nombre: "Chloe", imageUrl: ChloeImg },
   ];
 
   const universoPlaceholder: CarouselItem[] = [
-    { id: "u1", nombre: "Próximamente", imageUrl: Pokemon_1 },
-    { id: "u2", nombre: "Próximamente", imageUrl: Pokemon_2 },
-    { id: "u3", nombre: "Próximamente", imageUrl: Pokemon_3 },
-    { id: "u4", nombre: "Próximamente", imageUrl: Pokemon_4 },
+    { id: "u1", nombre: "Academia Solera", imageUrl: AcademiaSolera },
+    { id: "u2", nombre: "Colgante", imageUrl: Colgante },
+    { id: "u3", nombre: "Emblema Imperial", imageUrl: EmblemaImperial },
+    { id: "u4", nombre: "Emblema Caballeros", imageUrl: EmblemaCaballeros },
+    { id: "u5", nombre: "Libro Área Zero", imageUrl: LibroAreaZero },
   ];
 
   return (
@@ -341,7 +361,10 @@ function Encyclopedia() {
                 <SeeMoreButton />
               </div>
 
-              <EncyclopediaCarousel items={personajesPlaceholder} />
+              <EncyclopediaCarousel
+                items={personajesPlaceholder}
+                imageMaxHeight="400px"
+              />
             </div>
 
             {/* Sección Universo */}
@@ -363,7 +386,10 @@ function Encyclopedia() {
                 <SeeMoreButton />
               </div>
 
-              <EncyclopediaCarousel items={universoPlaceholder} />
+              <EncyclopediaCarousel
+                items={universoPlaceholder}
+                imageMaxHeight="400px"
+              />
             </div>
           </div>
         </section>

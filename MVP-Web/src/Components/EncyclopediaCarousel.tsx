@@ -12,6 +12,7 @@ export interface CarouselItem {
 interface EncyclopediaCarouselProps {
   items: CarouselItem[];
   onCardClick?: (item: any) => void;
+  imageMaxHeight?: string;
 }
 
 function useItemsPerPage() {
@@ -43,6 +44,7 @@ function useItemsPerPage() {
 function EncyclopediaCarousel({
   items,
   onCardClick,
+  imageMaxHeight,
 }: EncyclopediaCarouselProps) {
   const itemsPerPage = useItemsPerPage();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -102,6 +104,9 @@ function EncyclopediaCarousel({
                   src={item.imageUrl}
                   alt={item.nombre}
                   className="w-full h-full object-contain"
+                  style={
+                    imageMaxHeight ? { maxHeight: imageMaxHeight } : undefined
+                  }
                 />
               </div>
               <h3
