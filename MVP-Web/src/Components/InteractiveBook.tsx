@@ -1,5 +1,10 @@
-import React, { useState, useRef, useCallback, useEffect, useMemo } from "react";
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import HTMLFlipBook from "react-pageflip";
 import BackButton from "./Common/BackButton";
@@ -13,10 +18,9 @@ import portada3 from "../assets/Books/imagen 1.png";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
-
 function pdfPageToFlipIndex(pdfPage: number): number {
-    if (pdfPage <= 1) return 0;
-    return pdfPage % 2 === 0 ? pdfPage - 1 : pdfPage - 1;
+  if (pdfPage <= 1) return 0;
+  return pdfPage % 2 === 0 ? pdfPage - 1 : pdfPage - 1;
 }
 
 /** Pages within this distance from the visible spread are rendered as canvases.  */
@@ -50,59 +54,64 @@ const DEFAULT_TOC: TocEntry[] = [
 // ─── Clickable page indicator ─────────────────────────────────────────────────
 
 interface PageIndicatorProps {
-    currentPage: number;
-    numPages: number;
-    onJump: (page: number) => void;
+  currentPage: number;
+  numPages: number;
+  onJump: (page: number) => void;
 }
 
-const PageIndicator: React.FC<PageIndicatorProps> = ({ currentPage, numPages, onJump }) => {
-    const [editing, setEditing] = useState(false);
-    const [draft, setDraft] = useState("");
-    const inputRef = useRef<HTMLInputElement>(null);
+const PageIndicator: React.FC<PageIndicatorProps> = ({
+  currentPage,
+  numPages,
+  onJump,
+}) => {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    const startEdit = () => {
-        setDraft(String(currentPage + 1));
-        setEditing(true);
-        setTimeout(() => inputRef.current?.select(), 0);
-    };
+  const startEdit = () => {
+    setDraft(String(currentPage));
+    setEditing(true);
+    setTimeout(() => inputRef.current?.select(), 0);
+  };
 
-    const commit = () => {
-        const n = parseInt(draft, 10);
-        if (!isNaN(n) && n >= 1 && n <= numPages) {
-            // Flipbook is 0-indexed. Snap to left leaf of the spread.
-            onJump(n % 2 === 0 ? n - 1 : n);
-        }
-        setEditing(false);
-    };
-
-    if (editing) {
-        return (
-            <input
-                ref={inputRef}
-                className="book-page-input"
-                value={draft}
-                onChange={(e) => setDraft(e.target.value)}
-                onBlur={commit}
-                onKeyDown={(e) => {
-                    if (e.key === "Enter") commit();
-                    if (e.key === "Escape") setEditing(false);
-                }}
-                type="number"
-                min={1}
-                max={numPages}
-            />
-        );
+  const commit = () => {
+    const n = parseInt(draft, 10);
+    if (!isNaN(n) && n >= 0 && n <= numPages - 1) {
+      // Flipbook is 0-indexed. Snap to left leaf of the spread.
+      const targetPage = n + 1;
+      onJump(targetPage % 2 === 0 ? targetPage - 1 : targetPage);
     }
+    setEditing(false);
+  };
 
+  if (editing) {
     return (
-        <span
-            className="book-page-indicator"
-            title="Haz clic para ir a una página"
-            onClick={startEdit}
-        >
-            {currentPage + 1} / {numPages}
-        </span>
+      <input
+        ref={inputRef}
+        className="book-page-input"
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") commit();
+          if (e.key === "Escape") setEditing(false);
+        }}
+        type="number"
+        min={0}
+        max={numPages > 0 ? numPages - 1 : 0}
+      />
     );
+  }
+
+  return (
+    <span
+      className="book-page-indicator"
+      title="Haz clic para ir a una página"
+      onClick={startEdit}
+    >
+      {currentPage} / {numPages > 0 ? numPages - 1 : 0}
+    </span>
+  );
 };
 
 // ─── Main component ───────────────────────────────────────────────────────────
@@ -113,258 +122,258 @@ interface ExtendedBookProps extends InteractiveBookProps {
 }
 
 const InteractiveBook: React.FC<ExtendedBookProps> = ({
-    pdfUrl = libro1,
-    toc = DEFAULT_TOC,
-    loginUrl = "/login",
+  pdfUrl = libro1,
+  toc = DEFAULT_TOC,
+  loginUrl = "/login",
 }) => {
-    const [numPages, setNumPages] = useState<number>(0);
-    const [currentPage, setCurrentPage] = useState<number>(0);
-    const [pageSize, setPageSize] = useState({ w: 420, h: 594 });
+  const [numPages, setNumPages] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [pageSize, setPageSize] = useState({ w: 420, h: 594 });
 
-    /**
-     * Pages that have ever been "near" the viewport get added here.
-     * Once activated they stay rendered — prevents react-pageflip
-     * from getting confused by children being removed and re-added.
-     */
-    const [activatedPages, setActivatedPages] = useState<Set<number>>(
-        () => new Set([1, 2, 3, 4])
-    );
+  const [activatedPages, setActivatedPages] = useState<Set<number>>(
+    () => new Set([1, 2, 3, 4]),
+  );
 
-    const book = useRef<any>(null);
+  const book = useRef<any>(null);
 
-    // ── Responsive sizing ──────────────────────────────────────────────────────
-    useEffect(() => {
-        let resizeTimeout: number;
-        const compute = () => {
-            const vw = window.innerWidth;
-            let w: number;
-            if (vw < 960) {
-                w = Math.min(Math.floor((vw - 48) / 2), 380);
-            } else {
-                const centerColW = vw - 170 - 280 - 128;
-                w = Math.min(Math.floor(centerColW / 2) - 8, 560);
-            }
-            w = Math.max(w, 260);
-            setPageSize({ w, h: Math.round(w * 1.414) });
-        };
-        const debounced = () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = window.setTimeout(compute, 150);
-        };
-        compute();
-        window.addEventListener("resize", debounced);
-        return () => {
-            window.removeEventListener("resize", debounced);
-            clearTimeout(resizeTimeout);
-        };
-    }, []);
+  // ── Responsive sizing ──────────────────────────────────────────────────────
+  useEffect(() => {
+    let resizeTimeout: number;
+    const compute = () => {
+      const vw = window.innerWidth;
+      let w: number;
+      if (vw < 960) {
+        w = Math.min(Math.floor((vw - 48) / 2), 380);
+      } else {
+        const centerColW = vw - 170 - 280 - 128;
+        w = Math.min(Math.floor(centerColW / 2) - 8, 560);
+      }
+      w = Math.max(w, 260);
+      setPageSize({ w, h: Math.round(w * 1.414) });
+    };
+    const debounced = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = window.setTimeout(compute, 150);
+    };
+    compute();
+    window.addEventListener("resize", debounced);
+    return () => {
+      window.removeEventListener("resize", debounced);
+      clearTimeout(resizeTimeout);
+    };
+  }, []);
 
-    // ── Activate pages near the current spread ─────────────────────────────────
-    useEffect(() => {
-        if (numPages === 0) return;
-        const first = Math.max(1, currentPage - RENDER_WINDOW);
-        const last = Math.min(numPages, currentPage + 1 + RENDER_WINDOW);
-        setActivatedPages((prev) => {
-            let changed = false;
-            const next = new Set(prev);
-            for (let p = first; p <= last; p++) {
-                if (!next.has(p)) { next.add(p); changed = true; }
-            }
-            return changed ? next : prev; // bail out if nothing new
-        });
-    }, [currentPage, numPages]);
-
-    // ── Handlers ──────────────────────────────────────────────────────────────
-    const onDocumentLoadSuccess = useCallback(
-        ({ numPages: n }: { numPages: number }) => setNumPages(n),
-        []
-    );
-
-    const nextFlip = useCallback(() => book.current?.pageFlip?.().flipNext(), []);
-    const prevFlip = useCallback(() => book.current?.pageFlip?.().flipPrev(), []);
-
-    const goToPage = useCallback((page: number) => {
-        book.current?.pageFlip?.().flip(pdfPageToFlipIndex(page));
-    }, []);
-
-    const onFlip = useCallback((e: any) => setCurrentPage(e.data), []);
-
-    // ── Active TOC entry ───────────────────────────────────────────────────────
-    const activeEntry = useMemo<TocEntry | null>(() => {
-        const displayPage = currentPage + 1;
-        let active: TocEntry | null = null;
-        for (const entry of toc) {
-            if (entry.page <= displayPage) active = entry;
-            else break;
+  // ── Activate pages near the current spread ─────────────────────────────────
+  useEffect(() => {
+    if (numPages === 0) return;
+    const first = Math.max(1, currentPage - RENDER_WINDOW);
+    const last = Math.min(numPages, currentPage + 1 + RENDER_WINDOW);
+    setActivatedPages((prev) => {
+      let changed = false;
+      const next = new Set(prev);
+      for (let p = first; p <= last; p++) {
+        if (!next.has(p)) {
+          next.add(p);
+          changed = true;
         }
-        return active;
-    }, [currentPage, toc]);
+      }
+      return changed ? next : prev; // bail out if nothing new
+    });
+  }, [currentPage, numPages]);
 
-    // ── TOC nodes (only recomputes when active entry changes) ──────────────────
-    const tocNodes = useMemo(() => {
-        const nodes: React.ReactNode[] = [];
-        let lastSection = "";
-        toc.forEach((entry, i) => {
-            if (entry.section && entry.section !== lastSection) {
-                lastSection = entry.section;
-                nodes.push(
-                    <p key={`s${i}`} className="toc-section-title">
-                        {entry.section}
-                    </p>
-                );
-            }
-            const isActive = entry === activeEntry;
-            nodes.push(
-                <button
-                    key={`e${i}`}
-                    className={`toc-entry${isActive ? " active" : ""}`}
-                    onClick={() => goToPage(entry.page)}
-                    title={`Ir a la página ${entry.page}`}
-                >
-                    <span className="toc-entry-label">{entry.label}</span>
-                    <span className="toc-entry-dots" aria-hidden="true" />
-                    <span className="toc-entry-page">{entry.page}</span>
-                </button>
-            );
-        });
-        return nodes;
-    }, [toc, activeEntry, goToPage]);
+  // ── Handlers ──────────────────────────────────────────────────────────────
+  const onDocumentLoadSuccess = useCallback(
+    ({ numPages: n }: { numPages: number }) => setNumPages(n),
+    [],
+  );
 
-    // ── Page list ──────────────────────────────────────────────────────────────
-    // Depends on activatedPages (grows monotonically) and numPages / pageSize.w.
-    // Structurally stable: same number of div children every render.
-    const pageNodes = useMemo(() => {
-        return Array.from({ length: numPages }, (_, i) => {
-            const pageNum = i + 1;
-            return (
-                <div key={`p${pageNum}`} className="book-page-container">
-                    {activatedPages.has(pageNum) ? (
-                        <Page
-                            pageNumber={pageNum}
-                            width={pageSize.w}
-                            renderAnnotationLayer={false}
-                            renderTextLayer={false}
-                            renderMode="canvas"
-                            className="book-page-content"
-                        />
-                    ) : (
-                        <div className="book-page-placeholder" />
-                    )}
-                </div>
-            );
-        });
-    }, [numPages, activatedPages, pageSize.w]);
+  const nextFlip = useCallback(() => book.current?.pageFlip?.().flipNext(), []);
+  const prevFlip = useCallback(() => book.current?.pageFlip?.().flipPrev(), []);
 
-    return (
-        <div className="interactive-book-container">
-            <div className="book-stage">
+  const goToPage = useCallback((page: number) => {
+    book.current?.pageFlip?.().flip(pdfPageToFlipIndex(page));
+  }, []);
 
-                {/* ── Left sidebar ────────────────────────────────────────────── */}
-                <aside className="book-sidebar-left">
-                    <div className="book-cover-thumb"><img src={portada1} alt="Portada 1" /></div>
-                    <div className="book-cover-thumb"><img src={portada2} alt="Portada 2" /></div>
-                    <div className="book-cover-thumb"><img src={portada3} alt="Portada 3" /></div>
-                </aside>
+  const onFlip = useCallback((e: any) => setCurrentPage(e.data), []);
 
-                {/* ── Centre ──────────────────────────────────────────────────── */}
-                <div className="book-center">
-                    <Document
-                        file={pdfUrl}
-                        onLoadSuccess={onDocumentLoadSuccess}
-                        className="book-wrapper"
-                        loading={<div className="loading-message">Cargando libro…</div>}
-                        error={<div className="error-message">Error al cargar el PDF.</div>}
-                    >
-                        {numPages > 0 && (
-                            <HTMLFlipBook
-                                width={pageSize.w}
-                                height={pageSize.h}
-                                size="fixed"
-                                minWidth={200}
-                                maxWidth={800}
-                                minHeight={280}
-                                maxHeight={1200}
-                                drawShadow={true}
-                                flippingTime={750}
-                                usePortrait={false}
-                                startZIndex={0}
-                                autoSize={false}
-                                maxShadowOpacity={0.55}
-                                showCover={true}
-                                mobileScrollSupport={true}
-                                className="demo-book"
-                                style={{}}
-                                startPage={0}
-                                swipeDistance={30}
-                                clickEventForward={true}
-                                useMouseEvents={true}
-                                showPageCorners={true}
-                                disableFlipByClick={false}
-                                ref={book}
-                                onFlip={onFlip}
-                            >
-                                {pageNodes}
-                            </HTMLFlipBook>
-                        )}
-                    </Document>
+  // ── Active TOC entry ───────────────────────────────────────────────────────
+  const activeEntry = useMemo<TocEntry | null>(() => {
+    const displayPage = currentPage;
+    let active: TocEntry | null = null;
+    for (const entry of toc) {
+      if (entry.page <= displayPage) active = entry;
+      else break;
+    }
+    return active;
+  }, [currentPage, toc]);
 
-                    {numPages > 0 && (
-                        <div className="book-controls">
-                            <BackButton onClick={prevFlip} className="book-nav-button" size={36} />
-                            <PageIndicator
-                                currentPage={currentPage}
-                                numPages={numPages}
-                                onJump={goToPage}
-                            />
-                            <ForwardButton onClick={nextFlip} className="book-nav-button" size={36} />
-                        </div>
-                    )}
+  // ── TOC nodes (only recomputes when active entry changes) ──────────────────
+  const tocNodes = useMemo(() => {
+    const nodes: React.ReactNode[] = [];
+    let lastSection = "";
+    toc.forEach((entry, i) => {
+      if (entry.section && entry.section !== lastSection) {
+        lastSection = entry.section;
+        nodes.push(
+          <p key={`s${i}`} className="toc-section-title">
+            {entry.section}
+          </p>,
+        );
+      }
+      const isActive = entry === activeEntry;
+      nodes.push(
+        <button
+          key={`e${i}`}
+          className={`toc-entry${isActive ? " active" : ""}`}
+          onClick={() => goToPage(entry.page)}
+          title={`Ir a la página ${entry.page}`}
+        >
+          <span className="toc-entry-label">{entry.label}</span>
+          <span className="toc-entry-dots" aria-hidden="true" />
+          <span className="toc-entry-page">{entry.page}</span>
+        </button>,
+      );
+    });
+    return nodes;
+  }, [toc, activeEntry, goToPage]);
 
-                    <p className="book-cta">
-                        ¿Quieres seguir leyendo?{" "}
-                        <a href={loginUrl}>Inicia sesión…</a>
-                    </p>
-                </div>
-
-                {/* ── Right sidebar: TOC ───────────────────────────────────────── */}
-                <aside className="book-sidebar-right">
-                    <h2 className="toc-title">Índice</h2>
-                    <div className="toc-scroll">{tocNodes}</div>
-                </aside>
-
-            </div>
+  // ── Page list ──────────────────────────────────────────────────────────────
+  // Depends on activatedPages (grows monotonically) and numPages / pageSize.w.
+  // Structurally stable: same number of div children every render.
+  const pageNodes = useMemo(() => {
+    return Array.from({ length: numPages }, (_, i) => {
+      const pageNum = i + 1;
+      return (
+        <div key={`p${pageNum}`} className="book-page-container">
+          {activatedPages.has(pageNum) ? (
+            <Page
+              pageNumber={pageNum}
+              width={pageSize.w}
+              renderAnnotationLayer={false}
+              renderTextLayer={false}
+              renderMode="canvas"
+              className="book-page-content"
+            />
+          ) : (
+            <div className="book-page-placeholder" />
           )}
-
-          <p className="book-cta">
-            ¿Quieres seguir leyendo? <a href={loginUrl}>Inicia sesión…</a>
-          </p>
         </div>
+      );
+    });
+  }, [numPages, activatedPages, pageSize.w]);
 
-        <aside className="book-sidebar-right">
-          <h2 className="toc-title">Índice</h2>
-          {(() => {
-            const nodes: React.ReactNode[] = [];
-            let lastSection = "";
-            toc.forEach((entry, i) => {
-              if (entry.section && entry.section !== lastSection) {
-                lastSection = entry.section;
-                nodes.push(
-                  <p key={`s${i}`} className="toc-section-title">
-                    {entry.section}
-                  </p>,
-                );
+  return (
+    <>
+      <div className="interactive-book-container">
+        <div className="book-stage">
+          {/* ── Left sidebar ────────────────────────────────────────────── */}
+          <aside className="book-sidebar-left">
+            <div className="book-cover-thumb">
+              <img src={portada1} alt="Portada 1" />
+            </div>
+            <div className="book-cover-thumb">
+              <img src={portada2} alt="Portada 2" />
+            </div>
+            <div className="book-cover-thumb">
+              <img src={portada3} alt="Portada 3" />
+            </div>
+          </aside>
+
+          {/* ── Centre ──────────────────────────────────────────────────── */}
+          <div className="book-center">
+            {numPages > 0 && (
+              <div
+                className="book-header"
+                style={{ width: pageSize.w * 2, maxWidth: "100%" }}
+              >
+                <span className="book-header-title">
+                  MVP II - La Llamada del Aura
+                </span>
+                <span className="book-header-chapter">
+                  {activeEntry ? activeEntry.label : ""}
+                </span>
+              </div>
+            )}
+            <Document
+              file={pdfUrl}
+              onLoadSuccess={onDocumentLoadSuccess}
+              className="book-wrapper"
+              loading={<div className="loading-message">Cargando libro…</div>}
+              error={
+                <div className="error-message">Error al cargar el PDF.</div>
               }
-              nodes.push(
-                <ul key={`u${i}`} className="toc-list">
-                  <li onClick={() => goToPage(entry.page)}>{entry.label}</li>
-                </ul>,
-              );
-            });
-            return nodes;
-          })()}
-        </aside>
+            >
+              {numPages > 0 && (
+                <HTMLFlipBook
+                  width={pageSize.w}
+                  height={pageSize.h}
+                  size="fixed"
+                  minWidth={200}
+                  maxWidth={800}
+                  minHeight={280}
+                  maxHeight={1200}
+                  drawShadow={true}
+                  flippingTime={750}
+                  usePortrait={false}
+                  startZIndex={0}
+                  autoSize={false}
+                  maxShadowOpacity={0.55}
+                  showCover={true}
+                  mobileScrollSupport={true}
+                  className="demo-book"
+                  style={{}}
+                  startPage={0}
+                  swipeDistance={30}
+                  clickEventForward={true}
+                  useMouseEvents={true}
+                  showPageCorners={true}
+                  disableFlipByClick={false}
+                  ref={book}
+                  onFlip={onFlip}
+                >
+                  {pageNodes}
+                </HTMLFlipBook>
+              )}
+            </Document>
+
+            {numPages > 0 && (
+              <div
+                className="book-footer-controls"
+                style={{ width: pageSize.w * 2, maxWidth: "100%" }}
+              >
+                <BackButton
+                  onClick={prevFlip}
+                  className="book-nav-button-large"
+                  size={72}
+                />
+                <div className="book-footer-center">
+                  <PageIndicator
+                    currentPage={currentPage}
+                    numPages={numPages}
+                    onJump={goToPage}
+                  />
+                  <p className="book-cta-large">
+                    ¿Quieres seguir leyendo?{" "}
+                    <a href={loginUrl}>Inicia sesión...</a>
+                  </p>
+                </div>
+                <ForwardButton
+                  onClick={nextFlip}
+                  className="book-nav-button-large"
+                  size={72}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* ── Right sidebar: TOC ───────────────────────────────────────── */}
+          <aside className="book-sidebar-right">
+            <h2 className="toc-title">Índice</h2>
+            <div className="toc-scroll">{tocNodes}</div>
+          </aside>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
